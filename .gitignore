@@ -1,0 +1,12 @@
+# Ignore Go build output
+pokedexcli
+*.exe
+
+# Common Go ignores
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
