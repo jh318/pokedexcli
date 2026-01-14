@@ -1,12 +1,15 @@
 package main
 
 import "fmt"
-import "testing"
+import "strings"
 
 func main() {
 	fmt.Println("Hello, World!")
 }
 
 func cleanInput(text string) []string {
-	return []string{}
+	text = strings.TrimSpace(text)
+	text = strings.ToLower(text)
+	words := strings.Fields(text) 
+	return words
 }
