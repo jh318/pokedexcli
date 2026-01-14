@@ -10,3 +10,4 @@ pokedexcli
 *.dylib
 *.test
 *.out
+*.log
