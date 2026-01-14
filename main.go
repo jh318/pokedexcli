@@ -43,7 +43,7 @@ func cleanInput(text string) []string {
 }
 
 func getCommands() map[string]cliCommand {
-	commands := map[string]cliCommand {
+	return map[string]cliCommand {
 		"exit": {
 			name:		 "exit",
 			description: "Exit the Pokedex",
@@ -54,9 +54,7 @@ func getCommands() map[string]cliCommand {
 			description: "Displays a help message",
 			callback:	 commandHelp,
 		},
-	}
-	
-	return commands
+	}	
 }
 
 func commandExit() error {
