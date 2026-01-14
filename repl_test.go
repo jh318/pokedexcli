@@ -32,7 +32,7 @@ func TestCleanInput(t *testing.T) {
 		if len(actual) != len(c.expected) {
 			// if they don't match, use t.Errorf to print an error message
 			// and fail the test
-			t.Errorf("input: %q, actual length: %d \n expected words: %q, expected length: %d", c.input, len(actual), c.expected, len(c.expected) )
+			t.Errorf("input: %q, actual length: %d \n expected words: %q, expected length: %d", c.input, len(actual), c.expected, len(c.expected))
 			continue
 		}
 		for i := range actual {

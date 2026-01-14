@@ -1,17 +1,25 @@
 package main
 
-import "fmt"
-import "strings"
-import "bufio"
-import "os"
+import (
+	"bufio"
+	"fmt"
+	"os"
+	"strings"
+)
 
 type cliCommand struct {
-	name		string
+	name        string
 	description string
-	callback	func() error
+	callback    func(*config) error
+}
+
+type config struct {
+	nextURL     *string
+	previousURL *string
 }
 
 func startRepl() {
+	cfg := &config{}
 	scanner := bufio.NewScanner(os.Stdin)
 	commands := getCommands()
 	for {
@@ -25,7 +33,7 @@ func startRepl() {
 		cmdName := inputFormatted[0]
 		cmd, ok := commands[cmdName]
 		if ok {
-			err := cmd.callback()
+			err := cmd.callback(cfg)
 			if err != nil {
 				fmt.Println(err)
 			}
@@ -38,36 +46,26 @@ func startRepl() {
 func cleanInput(text string) []string {
 	text = strings.TrimSpace(text)
 	text = strings.ToLower(text)
-	words := strings.Fields(text) 
+	words := strings.Fields(text)
 	return words
 }
 
 func getCommands() map[string]cliCommand {
-	return map[string]cliCommand {
+	return map[string]cliCommand{
 		"exit": {
-			name:		 "exit",
+			name:        "exit",
 			description: "Exit the Pokedex",
-			callback:	 commandExit,
+			callback:    commandExit,
 		},
 		"help": {
-			name:		 "help",
+			name:        "help",
 			description: "Displays a help message",
-			callback:	 commandHelp,
+			callback:    commandHelp,
 		},
-	}	
-}
-
-func commandExit() error {
-	fmt.Printf("Closing the Pokedex... Goodbye!\n")
-	os.Exit(0)
-	return nil
-}
-
-func commandHelp() error {
-    fmt.Println("Welcome to the Pokedex!")
-    fmt.Println("Usage:")
-    fmt.Println()
-    fmt.Println("help: Displays a help message")
-    fmt.Println("exit: Exit the Pokedex")
-    return nil
+		"map": {
+			name:        "map",
+			description: "Get the next page of locations",
+			callback:    commandMap,
+		},
+	}
 }
