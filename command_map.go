@@ -35,11 +35,6 @@ func commandMap(cfg *config) error {
 }
 
 func commandMapb(cfg *config) error {
-	// 1) if no previous page, print message and return
-	// 2) otherwise, call GetLocationAreas(*cfg.previousURL)
-	// 3) print names
-	// 4) update cfg.nextURL and cfg.previousURL
-
 	var url string
 	if cfg.previousURL == nil {
 		fmt.Println("you're on the first page")

@@ -9,7 +9,6 @@ import (
 //import "net/http"
 
 func GetLocationAreas(url string) (RespShallowLocations, error) {
-	// TODO: make HTTP request, decode JSON
 	res, err := http.Get(url)
 	if err != nil {
 		return RespShallowLocations{}, err
