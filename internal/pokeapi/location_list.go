@@ -30,7 +30,7 @@ func (c *Client) GetLocationAreas(url string) (RespShallowLocations, error) {
 	c.cache.Add(url, body)
 
 	var locations RespShallowLocations
-	if json.Unmarshal(body, &locations); err != nil {
+	if err := json.Unmarshal(body, &locations); err != nil {
 		return RespShallowLocations{}, err
 	}
 
