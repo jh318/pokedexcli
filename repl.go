@@ -5,6 +5,9 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"time"
+
+	"github.com/jh318/pokedexcli/internal/pokeapi"
 )
 
 type cliCommand struct {
@@ -16,10 +19,13 @@ type cliCommand struct {
 type config struct {
 	nextURL     *string
 	previousURL *string
+	pokeClient  pokeapi.Client
 }
 
 func startRepl() {
-	cfg := &config{}
+	cfg := &config{
+		pokeClient: pokeapi.NewClient(5*time.Second, 5*time.Second),
+	}
 	scanner := bufio.NewScanner(os.Stdin)
 	commands := getCommands()
 	for {

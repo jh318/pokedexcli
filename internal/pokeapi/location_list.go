@@ -3,13 +3,20 @@ package pokeapi
 import (
 	"encoding/json"
 	"io"
-	"net/http"
 )
 
 //import "net/http"
 
-func GetLocationAreas(url string) (RespShallowLocations, error) {
-	res, err := http.Get(url)
+func (c *Client) GetLocationAreas(url string) (RespShallowLocations, error) {
+	if data, ok := c.cache.Get(url); ok {
+		var locations RespShallowLocations
+		if err := json.Unmarshal(data, &locations); err != nil {
+			return RespShallowLocations{}, err
+		}
+		return locations, nil
+	}
+
+	res, err := c.httpClient.Get(url)
 	if err != nil {
 		return RespShallowLocations{}, err
 	}
@@ -20,9 +27,10 @@ func GetLocationAreas(url string) (RespShallowLocations, error) {
 		return RespShallowLocations{}, err
 	}
 
+	c.cache.Add(url, body)
+
 	var locations RespShallowLocations
-	err = json.Unmarshal(body, &locations)
-	if err != nil {
+	if json.Unmarshal(body, &locations); err != nil {
 		return RespShallowLocations{}, err
 	}
 

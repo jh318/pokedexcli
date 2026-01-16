@@ -2,8 +2,6 @@ package main
 
 import (
 	"fmt"
-
-	"github.com/jh318/pokedexcli/internal/pokeapi"
 )
 
 //import "net/http"
@@ -18,7 +16,7 @@ func commandMap(cfg *config) error {
 		url = *cfg.nextURL
 	}
 
-	resp, err := pokeapi.GetLocationAreas(url)
+	resp, err := cfg.pokeClient.GetLocationAreas(url)
 	if err != nil {
 		return err
 	}
@@ -43,7 +41,7 @@ func commandMapb(cfg *config) error {
 		url = *cfg.previousURL
 	}
 
-	resp, err := pokeapi.GetLocationAreas(url)
+	resp, err := cfg.pokeClient.GetLocationAreas(url)
 	if err != nil {
 		return err
 	}
