@@ -6,7 +6,7 @@ import (
 
 //import "net/http"
 
-func commandMap(cfg *config) error {
+func commandMap(cfg *config, args ...string) error {
 	const locationAreaURL = "https://pokeapi.co/api/v2/location-area?limit=20"
 
 	var url string
@@ -32,7 +32,7 @@ func commandMap(cfg *config) error {
 	return nil
 }
 
-func commandMapb(cfg *config) error {
+func commandMapb(cfg *config, args ...string) error {
 	var url string
 	if cfg.previousURL == nil {
 		fmt.Println("you're on the first page")
