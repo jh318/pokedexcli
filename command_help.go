@@ -12,5 +12,6 @@ func commandHelp(cfg *config, args ...string) error {
 	fmt.Println("mapb: Displays the previous set of locations")
 	fmt.Println("explore: List the Pokemon in a location area")
 	fmt.Println("catch: Catch a Pokemon")
+	fmt.Println("inspect: inspect a captured Pokemon")
 	return nil
 }

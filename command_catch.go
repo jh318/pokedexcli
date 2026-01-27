@@ -21,6 +21,7 @@ func commandCatch(cfg *config, args ...string) error {
 	difficulty := clamp(pokemon.BaseExperience, 10, 90)
 	if roll > difficulty {
 		fmt.Printf("%s was caught!\n", pokemon.Name)
+		cfg.caughtPokemon[name] = pokemon
 	} else {
 		fmt.Printf("%s escaped!\n", pokemon.Name)
 	}

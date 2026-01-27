@@ -17,14 +17,16 @@ type cliCommand struct {
 }
 
 type config struct {
-	nextURL     *string
-	previousURL *string
-	pokeClient  pokeapi.Client
+	nextURL       *string
+	previousURL   *string
+	pokeClient    pokeapi.Client
+	caughtPokemon map[string]pokeapi.Pokemon
 }
 
 func startRepl() {
 	cfg := &config{
-		pokeClient: pokeapi.NewClient(5*time.Second, 5*time.Second),
+		pokeClient:    pokeapi.NewClient(5*time.Second, 5*time.Second),
+		caughtPokemon: make(map[string]pokeapi.Pokemon),
 	}
 	scanner := bufio.NewScanner(os.Stdin)
 	commands := getCommands()
@@ -88,6 +90,11 @@ func getCommands() map[string]cliCommand {
 			name:        "catch",
 			description: "Catch a pokemon",
 			callback:    commandCatch,
+		},
+		"inspect": {
+			name:        "inspect",
+			description: "Inspect a pokemon",
+			callback:    commandInspect,
 		},
 	}
 }
